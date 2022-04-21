@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.geekbrains.spring_less_web.Controllers.Model.Client;
+import ru.geekbrains.spring_less_web.Controllers.Model.Product;
 import ru.geekbrains.spring_less_web.Controllers.Repository.ClientRepository;
+import ru.geekbrains.spring_less_web.Controllers.Repository.ProductRepository;
 
 @Controller
 public class MainController {
@@ -16,11 +18,32 @@ public class MainController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @GetMapping("/test2")
-    public String getTest(Model model){
-        Client client = clientRepository.findById(2L);
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping("/client/{id}")
+    public String getTest(Model model, @PathVariable Long id){
+        Client client = clientRepository.findById(id);
         model.addAttribute("human", client);
-        return "index";
+        return "client_page";
+    }
+    @GetMapping("/product/{id}")
+    public String getTest1(Model model1, @PathVariable Long id){
+        Product product = productRepository.findById(id);
+        model1.addAttribute("name_product", product);
+        return "product_page";
+    }
+
+    @GetMapping("/client/all")
+    public String getTest(Model model){
+        model.addAttribute("humans", clientRepository.getAllClientList());
+        return "client_info_page";
+    }
+
+    @GetMapping("/product/all")
+    public String getTest1(Model model1){
+        model1.addAttribute("name_products", productRepository.getAllProductList());
+        return "product_info_page";
     }
 
     //http://localhost/app/add
