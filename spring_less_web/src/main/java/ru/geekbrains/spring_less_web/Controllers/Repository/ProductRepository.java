@@ -2,6 +2,7 @@ package ru.geekbrains.spring_less_web.Controllers.Repository;
 
 import org.springframework.stereotype.Component;
 
+import ru.geekbrains.spring_less_web.Controllers.Model.Client;
 import ru.geekbrains.spring_less_web.Controllers.Model.Product;
 
 import javax.annotation.PostConstruct;
@@ -29,5 +30,8 @@ public class ProductRepository {
     }
     public Product findById(Long id){
         return productList.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+    public void removeProduct(Product product) {
+        productList.remove(product);
     }
 }

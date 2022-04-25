@@ -21,6 +21,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     };
 
+    $scope.removeProduct = function (product){
+        $http({
+            url: contextPath + '/remove_product',
+            method: 'GET',
+            params: {
+                product: product
+            }
+        }).then(function (response){
+            $scope.loadProducts();
+        });
+    };
+
     $scope.loadProducts();
 
 });

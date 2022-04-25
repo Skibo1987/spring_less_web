@@ -19,6 +19,7 @@
             <td>ID</td>
             <td>Название продукта</td>
             <td>Цена</td>
+            <td>Корзина</td>
         </tr>
         <tbody>
         <tr ng-repeat="s in productList">
@@ -30,6 +31,10 @@
                 {{s.cost}}
                 <button class="btn btn-primary" ng-click="changeCost(s.id, 5)">+</button>
             </td>
+            <td>
+                <button class="btn btn-info" ng-click="removeProduct(s.product)">Удалить</button>
+            </td>
+
         </tbody>
     </table>
 </div>
