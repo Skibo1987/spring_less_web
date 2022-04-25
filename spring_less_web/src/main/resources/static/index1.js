@@ -21,12 +21,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     };
 
-    $scope.removeProduct = function (product){
+    $scope.removeProduct = function (productId){
         $http({
-            url: contextPath + '/remove_product',
-            method: 'GET',
+            url: contextPath + '/product/remove_product',
+            method: 'POST',
             params: {
-                product: product
+                productId: productId
             }
         }).then(function (response){
             $scope.loadProducts();

@@ -113,9 +113,9 @@ public class MainController {
         return "simple_form_prod";
     }
 
-    @GetMapping("/remove_product")
-    public void removeProduct(@RequestParam Product product){
-        productRepository.removeProduct(product);
+    @PostMapping("/product/remove_product")
+    public void removeProduct(@RequestParam Long productId){
+        serviseProduct.removeProduct(productId);
     }
 
     @PostMapping("/client/add")

@@ -17,7 +17,8 @@ public class ProductServise {
 
     }
 
-    public void removeProduct(Product product){
+    public void removeProduct(Long id){
+        Product product = repositoryProduct.findById(id);
         repositoryProduct.removeProduct(product);
     }
 }
