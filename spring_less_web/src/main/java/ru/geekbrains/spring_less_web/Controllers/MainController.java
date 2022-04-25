@@ -3,20 +3,23 @@ package ru.geekbrains.spring_less_web.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring_less_web.Controllers.Model.Client;
 import ru.geekbrains.spring_less_web.Controllers.Model.Product;
 import ru.geekbrains.spring_less_web.Controllers.Repository.ClientRepository;
 import ru.geekbrains.spring_less_web.Controllers.Repository.ProductRepository;
+import ru.geekbrains.spring_less_web.Controllers.Service.ClientServise;
+
+import java.util.List;
 
 @Controller
 public class MainController {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private ClientServise servise;
 
     @Autowired
     private ProductRepository productRepository;
@@ -35,9 +38,10 @@ public class MainController {
     }
 
     @GetMapping("/client/all")
-    public String getTest(Model model){
-        model.addAttribute("humans", clientRepository.getAllClientList());
-        return "client_info_page";
+    @ResponseBody
+    public List<Client> getTest(){
+        return clientRepository.getAllClientList();
+
     }
 
     @GetMapping("/product/all")
@@ -46,11 +50,11 @@ public class MainController {
         return "product_info_page";
     }
 
-    //http://localhost/app/add
-    @GetMapping("/add")
+    //http://localhost/app/find
+    @GetMapping("/find")
     @ResponseBody
-    public String add() {
-        return "hello";
+    public Client add() {
+        return clientRepository.findById(1L);
     }
 
     //http://localhost/app/sum
@@ -80,5 +84,24 @@ public class MainController {
 //    public String div() {
 //        return "div";
 //    }
+
+    @GetMapping("/client/change_score")
+    public void changeScore(@RequestParam Long clientId,@RequestParam Integer delta){
+    servise.changeScore(clientId, delta);
+    }
+
+    @GetMapping("/show_page")
+    public String form(){
+    return "simple_form";
+    }
+
+    @PostMapping("/client/add")
+    @ResponseBody
+    public void addclientPost(@RequestBody Client client){
+        clientRepository.addClient(client);
+    }
+
+
+
 
 }
