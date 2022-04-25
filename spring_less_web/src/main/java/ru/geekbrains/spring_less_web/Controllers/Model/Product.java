@@ -3,7 +3,7 @@ package ru.geekbrains.spring_less_web.Controllers.Model;
 public class Product {
     private Long id;
     private String title;
-    private int cost;
+    private Integer cost;
 
     public Product(Long id, String title, int cost) {
         this.id = id;
@@ -36,5 +36,8 @@ public class Product {
     }
 
     public Product() {
+    }
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 }

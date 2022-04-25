@@ -9,10 +9,11 @@ import ru.geekbrains.spring_less_web.Controllers.Model.Product;
 import ru.geekbrains.spring_less_web.Controllers.Repository.ClientRepository;
 import ru.geekbrains.spring_less_web.Controllers.Repository.ProductRepository;
 import ru.geekbrains.spring_less_web.Controllers.Service.ClientServise;
+import ru.geekbrains.spring_less_web.Controllers.Service.ProductServise;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MainController {
 
     @Autowired
@@ -20,6 +21,9 @@ public class MainController {
 
     @Autowired
     private ClientServise servise;
+
+    @Autowired
+    private ProductServise serviseProduct;
 
     @Autowired
     private ProductRepository productRepository;
@@ -38,21 +42,26 @@ public class MainController {
     }
 
     @GetMapping("/client/all")
-    @ResponseBody
+//    @ResponseBody
     public List<Client> getTest(){
         return clientRepository.getAllClientList();
 
     }
 
     @GetMapping("/product/all")
-    public String getTest1(Model model1){
-        model1.addAttribute("name_products", productRepository.getAllProductList());
-        return "product_info_page";
+    public List<Product> getTest1(){
+        return productRepository.getAllProductList();
     }
+
+//    @GetMapping("/product/all")
+//    public String getTest1(Model model1){
+//        model1.addAttribute("name_products", productRepository.getAllProductList());
+//        return "product_info_page";
+//    }
 
     //http://localhost/app/find
     @GetMapping("/find")
-    @ResponseBody
+//    @ResponseBody
     public Client add() {
         return clientRepository.findById(1L);
     }
@@ -66,14 +75,14 @@ public class MainController {
 
     //http://localhost/app/sum
     @GetMapping("/sum")
-    @ResponseBody
+//    @ResponseBody
     public int sum(@RequestParam(name = "param") int a, @RequestParam("param1") int b) {
         return a + b;
     }
 
     //http://localhost/app/client/2
     @GetMapping("/client/{id}/info")
-    @ResponseBody
+//    @ResponseBody
     public String findClientById(@PathVariable Long id) {
         return "Client #" + id;
     }
@@ -95,8 +104,17 @@ public class MainController {
     return "simple_form";
     }
 
+    @GetMapping("/product/change_cost")
+    public void changeCost(@RequestParam Long productId,@RequestParam Integer delta){
+        serviseProduct.changeCostProd(productId, delta);
+    }
+    @GetMapping("/show_page_prod")
+    public String form1(){
+        return "simple_form_prod";
+    }
+
     @PostMapping("/client/add")
-    @ResponseBody
+//    @ResponseBody
     public void addclientPost(@RequestBody Client client){
         clientRepository.addClient(client);
     }

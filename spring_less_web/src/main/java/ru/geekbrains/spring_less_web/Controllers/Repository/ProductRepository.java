@@ -24,9 +24,10 @@ public class ProductRepository {
         ));
     }
     public List<Product> getAllProductList(){
+
         return Collections.unmodifiableList(productList);
     }
     public Product findById(Long id){
-        return productList.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException("Product no found"));
+        return productList.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException("Product not found"));
     }
 }

@@ -29,7 +29,7 @@ public class ClientRepository {
     }
 
     public Client findById(Long id) {
-        return clientList.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException("Client no found"));
+        return clientList.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(() -> new RuntimeException("Client not found"));
     }
 
     public void add(Long id, String name, Integer score) {
