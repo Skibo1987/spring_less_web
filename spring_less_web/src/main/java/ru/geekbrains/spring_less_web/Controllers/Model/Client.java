@@ -5,9 +5,12 @@ public class Client {
     private Long id;
     private String name;
 
-    public Client(Long id, String name) {
+    private Integer score;
+
+    public Client(Long id, String name, Integer score) {
         this.id = id;
         this.name = name;
+        this.score = score;
     }
 
     public Long getId() {
@@ -26,6 +29,15 @@ public class Client {
         this.name = name;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     public Client() {
     }
+
 }
